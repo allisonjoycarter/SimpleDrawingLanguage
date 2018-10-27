@@ -1,6 +1,7 @@
 %{
 
 	#include <stdio.h>
+	int lines = 0;
 
 %}
 
@@ -15,8 +16,9 @@ rect			printf("RECTANGLE\n"); //command for a rectangle
 set_color		printf("SET_COLOR\n");  //match to set the  color
 [-+]?[0-9]+		printf("INT\n"); //recognize an int
 [-+]?[0-9]*\.?[0-9]+	printf("FLOAT\n"); //recognize a float
-[\ \r\n\t]+ 		; //do nothing, \s didn't work ?
-.			printf(" %s was not recognized!\n", yytext); //output everything else
+[\ \t]+ 		; //do nothing, \s didn't work ?
+\n			lines++;
+.			printf(" %s found on line %d was not recognized!\n", yytext, lines); //output everything else
 
 
 %%
