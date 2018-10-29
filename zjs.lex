@@ -4,21 +4,21 @@
 	int lines = 0;
 
 %}
-
+%option noyywrap
 %%
 
-end			{printf("END\n"); exit(0); /* quit the interpreter*/}
-;			printf("END_STATEMENT\n"); //command to end a statement
-point			printf("POINT\n"); //command for a point
-line			printf("LINE\n"); //command for a line
-circle			printf("CIRCLE\n"); //command for a circle
-rect			printf("RECTANGLE\n"); //command for a rectangle
-set_color		printf("SET_COLOR\n");  //match to set the  color
-[-+]?[0-9]+		printf("INT\n"); //recognize an int
-[-+]?[0-9]*\.?[0-9]+	printf("FLOAT\n"); //recognize a float
-[\ \t]+ 		; //do nothing, \s didn't work ?
-\n			lines++;
-.			printf(" %s found on line %d was not recognized!\n", yytext, lines); //output everything else
+end			{printf("END\n"); exit(0); }
+;			printf("END_STATEMENT\n"); 
+point			printf("POINT\n"); 
+line			printf("LINE\n"); 
+circle			printf("CIRCLE\n");
+rect			printf("RECTANGLE\n");
+set_color		printf("SET_COLOR\n");
+[-+]?[0-9]+		printf("INT\n"); 
+[-+]?[0-9]*\.?[0-9]+	printf("FLOAT\n");
+[\ \t]+ 		; /*do nothing, \s didn't work ?*/
+[\n]			lines++;
+.			printf(" %s found on line %d was not recognized!\n", yytext, lines);
 
 
 %%
