@@ -37,7 +37,12 @@ command:		LINE INT INT INT INT
 	|		RECTANGLE INT INT INT INT 
 			{ rectangle( $2, $3, $4, $5);}
 	|		SET_COLOR INT INT INT 
-			{set_color( $2, $3, $4);}
+			{if($2 <= 255 && $3 <= 255 && $4 <= 255
+				&& $2 >= 0 && $3 >= 0 && $4 >= 0)
+				set_color( $2, $3, $4);
+			 else
+				printf("%s","That color does not exist!");	
+			}
 	;
 
 
