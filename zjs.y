@@ -23,21 +23,21 @@
 %type <ival> INT
 %%
 
-program: 	list_of_commands END
+program: 	list_of_commands END END_STATEMENT
        ;
 
-list_of_commands:	command
-		|	list_of_commands command 
+list_of_commands:	command END_STATEMENT
+		|	list_of_commands command END_STATEMENT 
 		;
-command:		LINE INT INT INT INT END_STATEMENT 
+command:		LINE INT INT INT INT 
        			{ line((int) $2, (int) $3, (int) $4, (int) $5); }
-       |		POINT INT INT END_STATEMENT 
+       |		POINT INT INT 
 			{ point((int)$2,(int)$3);}
-	|		CIRCLE INT INT INT END_STATEMENT 
+	|		CIRCLE INT INT INT 
 			{ circle((int)$2,(int)$3,(int)$4);}
-	|		RECTANGLE INT INT INT INT END_STATEMENT 
+	|		RECTANGLE INT INT INT INT 
 			{ rectangle((int) $2,(int) $3,(int) $4,(int) $5);}
-	|		SET_COLOR INT INT INT END_STATEMENT 
+	|		SET_COLOR INT INT INT 
 			{set_color((int) $2,(int) $3,(int) $4);}
 	;
 
