@@ -15,8 +15,8 @@ line			return LINE;
 circle			return CIRCLE;
 rectangle		return RECTANGLE;
 set_color		return SET_COLOR;
-[-+]?[0-9]+		return INT; 
-[-+]?[0-9]*\.?[0-9]+	return FLOAT;
+[-+]?[0-9]+		{ yylval.ival = atoi(yytext); return INT;} 
+[-+]?[0-9]*\.?[0-9]+	{ yylval.fval = atof(yytext); return FLOAT;}
 [\ \t]+ 		; /*do nothing, \s didn't work ?*/
 [\n]			lines++;
 .			printf(" %s found on line %d was not recognized!\n", yytext, lines);

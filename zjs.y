@@ -5,6 +5,11 @@
 
 %}
 
+%union {
+	int ival;
+	float fval;
+}
+
 %token END
 %token END_STATEMENT
 %token POINT
@@ -12,15 +17,9 @@
 %token CIRCLE
 %token RECTANGLE
 %token SET_COLOR
-%token INT
-%token FLOAT
+%token <ival> INT
+%token <fval> FLOAT
 
-%union {
-	int ival;
-	float fval;
-}
-
-%type <ival> INT
 %%
 
 program: 	list_of_commands END END_STATEMENT
@@ -30,15 +29,15 @@ list_of_commands:	command END_STATEMENT
 		|	list_of_commands command END_STATEMENT 
 		;
 command:		LINE INT INT INT INT 
-       			{ line((int) $2, (int) $3, (int) $4, (int) $5); }
+       			{ line( $2, $3,  $4,  $5); }
        |		POINT INT INT 
-			{ point((int)$2,(int)$3);}
+			{ point($2,$3);}
 	|		CIRCLE INT INT INT 
-			{ circle((int)$2,(int)$3,(int)$4);}
+			{ circle($2,$3,$4);}
 	|		RECTANGLE INT INT INT INT 
-			{ rectangle((int) $2,(int) $3,(int) $4,(int) $5);}
+			{ rectangle( $2, $3, $4, $5);}
 	|		SET_COLOR INT INT INT 
-			{set_color((int) $2,(int) $3,(int) $4);}
+			{set_color( $2, $3, $4);}
 	;
 
 
